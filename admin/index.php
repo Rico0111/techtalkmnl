@@ -40,8 +40,8 @@ if ($pdo) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard — TechTalk Admin</title>
   <?php include __DIR__ . '/favicon.php'; ?>
-  <link rel="stylesheet" href="admin.css">
-  <script src="admin.js" defer></script>
+  <link rel="stylesheet" href="<?= admin_h(admin_asset_url('admin.css')) ?>">
+  <script src="<?= admin_h(admin_asset_url('admin.js')) ?>" defer></script>
 </head>
 <body<?= admin_preference_attributes() ?>>
   <?php include __DIR__ . '/navbar.php'; ?>
@@ -70,7 +70,7 @@ if ($pdo) {
         ['draft','Draft Products','','Private, unpublished records'],
       ] as [$key,$label,$color,$scope]): ?>
         <div class="stat-card">
-          <div class="stat-card-label"><?= $label ?></div>
+          <div class="stat-card-heading"><div class="stat-card-label"><?= $label ?></div><?php admin_icon($key); ?></div>
           <div class="stat-card-value <?= $color ?>"><?= $statsError ? '—' : number_format($stats[$key]) ?></div>
           <div class="stat-card-foot"><?= $statsError ? 'Data unavailable' : $scope ?></div>
         </div>

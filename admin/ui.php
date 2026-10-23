@@ -33,7 +33,7 @@ function admin_brand(string $href = 'index.php', bool $login = false): void {
       <a href="<?= admin_h($href) ?>" class="admin-brand-logo" aria-label="<?= $login ? 'Back to TechTalk website' : 'TechTalk dashboard' ?>">
         <img src="../assets/techtalk-logo-opt.png" srcset="../assets/techtalk-logo-opt.png 512w, ../assets/techtalk-logo.png 2048w" sizes="(max-width: 540px) 228px, 256px" alt="TechTalk — Buy Sell Trade" width="512" height="341" decoding="async">
       </a>
-      <span class="admin-brand-badge">SIGNAL / CATALOG EDITION</span>
+      <span class="admin-brand-badge">CATALOG WORKSPACE</span>
     </div>
     <?php
 }
@@ -89,4 +89,27 @@ function admin_event_details(array $event): void {
       </div>
     </details>
     <?php
+}
+
+/** Small monochrome workspace icons; names select fixed presentation paths only. */
+function admin_icon(string $name, string $class = ''): void {
+    $paths = [
+        'total'=>'M4 4h6v6H4z M14 4h6v6h-6z M4 14h6v6H4z M14 14h6v6h-6z',
+        'published'=>'M14 4h6v6 M20 4 10 14 M10 4H4v16h16v-6',
+        'available'=>'m5 12 4 4L19 6',
+        'reserved'=>'M12 8v5l3 2 M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0',
+        'sold'=>'M6 8h12l2 12H4L6 8Z M9 8V6a3 3 0 0 1 6 0v2',
+        'draft'=>'M5 4h14v16H5z M9 8h6 M9 12h6 M9 16h3',
+        'upload'=>'M12 16V4 m-5 5 5-5 5 5 M4 16v4h16v-4',
+    ];
+    if (!isset($paths[$name])) return;
+    echo '<svg class="workspace-icon ' . admin_h($class) . '" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="' . $paths[$name] . '" /></svg>';
+}
+
+/** Version presentation files by bytes so admin updates cannot reuse stale CDN keys. */
+function admin_asset_url(string $name): string {
+    static $versions = [];
+    if (!in_array($name, ['admin.css', 'admin.js', 'account.js', 'product-photos.js'], true)) return '';
+    if (!isset($versions[$name])) $versions[$name] = substr(hash_file('sha256', __DIR__ . '/' . $name), 0, 16);
+    return $name . '?v=' . $versions[$name];
 }

@@ -88,8 +88,8 @@ $products = get_admin_products($filters, $productsError);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Products — TechTalk Admin</title>
   <?php include __DIR__ . '/favicon.php'; ?>
-  <link rel="stylesheet" href="admin.css">
-  <script src="admin.js" defer></script>
+  <link rel="stylesheet" href="<?= admin_h(admin_asset_url('admin.css')) ?>">
+  <script src="<?= admin_h(admin_asset_url('admin.js')) ?>" defer></script>
 </head>
 <body<?= admin_preference_attributes() ?>>
   <?php include __DIR__ . '/navbar.php'; ?>
@@ -162,6 +162,7 @@ $products = get_admin_products($filters, $productsError);
                     <div><a class="product-name" href="product_edit.php?id=<?= (int)$p['id'] ?>"><?= admin_h($p['title']) ?></a>
                       <span class="code-pill"><?= admin_h($p['product_code']) ?></span>
                       <span class="cell-note"><?= admin_h($p['category_name']) ?> · <?= admin_h($p['condition_label']) ?></span>
+                      <span class="cell-note">Updated: <?= admin_h($p['updated_at'] ?? 'Not recorded') ?></span>
                     </div>
                   </div>
                 </td>

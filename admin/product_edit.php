@@ -134,9 +134,9 @@ if ($productId) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= $productId ? 'Edit Product #' . $productId : 'Add Product' ?> — TechTalk Admin</title>
   <?php include __DIR__ . '/favicon.php'; ?>
-  <link rel="stylesheet" href="admin.css?v=<?= (int)filemtime(__DIR__.'/admin.css') ?>">
-  <script src="admin.js" defer></script>
-  <script src="product-photos.js" defer></script>
+  <link rel="stylesheet" href="<?= admin_h(admin_asset_url('admin.css')) ?>">
+  <script src="<?= admin_h(admin_asset_url('admin.js')) ?>" defer></script>
+  <script src="<?= admin_h(admin_asset_url('product-photos.js')) ?>" defer></script>
 </head>
 <body<?= admin_preference_attributes() ?>>
   <?php include __DIR__ . '/navbar.php'; ?>
@@ -175,6 +175,14 @@ if ($productId) {
           <input type="text" id="product_code" name="product_code" placeholder="Leave empty to auto-generate (TT-XXXXX)" value="<?= htmlspecialchars($_POST['product_code'] ?? ($product['product_code'] ?? ''), ENT_QUOTES, 'UTF-8') ?>">
           <span class="help-text">Leave blank to generate a reference. Use this code to identify customer inquiries.</span>
         </div>
+
+<div class="form-group full-width">
+          <label for="description">Specifications & Description</label>
+          <textarea id="description" name="description" placeholder="Include battery health, cosmetic condition, accessories included, serial/warranty details..."><?= htmlspecialchars($_POST['description'] ?? ($product['description'] ?? ''), ENT_QUOTES, 'UTF-8') ?></textarea>
+        </div>
+</div></fieldset>
+<fieldset class="editor-section"><legend><span class="section-number">02</span>Pricing &amp; Category</legend>
+<p class="section-description">Choose the category, record the actual peso price, and describe the condition.</p><div class="form-grid">
 <div class="form-group">
           <label for="category_id">Category *</label>
           <select id="category_id" aria-describedby="category_id-error" name="category_id" required>
@@ -189,13 +197,6 @@ if ($productId) {
             <?php endforeach; ?>
           </select>
         <span class="field-error" id="category_id-error" hidden></span></div>
-<div class="form-group full-width">
-          <label for="description">Specifications & Description</label>
-          <textarea id="description" name="description" placeholder="Include battery health, cosmetic condition, accessories included, serial/warranty details..."><?= htmlspecialchars($_POST['description'] ?? ($product['description'] ?? ''), ENT_QUOTES, 'UTF-8') ?></textarea>
-        </div>
-</div></fieldset>
-<fieldset class="editor-section"><legend><span class="section-number">02</span>Price and Condition</legend>
-<p class="section-description">Record the actual peso price and when you last checked it.</p><div class="form-grid">
 <div class="form-group">
           <label for="price">Price (PHP) *</label>
           <input type="number" id="price" aria-describedby="price-error" name="price" step="0.01" min="0" required placeholder="e.g. 85000" value="<?= htmlspecialchars($_POST['price'] ?? ($product['price'] ?? '0'), ENT_QUOTES, 'UTF-8') ?>">
@@ -212,11 +213,7 @@ if ($productId) {
             <?php endforeach; ?>
           </select>
         </div>
-<div class="form-group">
-          <label for="price_verified_at">Price Verified Date</label>
-          <input type="datetime-local" step="1" id="price_verified_at" name="price_verified_at" value="<?= admin_h($_POST['price_verified_at'] ?? (!empty($product['price_verified_at']) ? substr(str_replace(' ', 'T', $product['price_verified_at']), 0, 19) : '')) ?>">
-          <span class="help-text">Set only after you verify this information. Leave blank if not verified.</span>
-        </div>
+
 </div></fieldset>
 <fieldset class="editor-section"><legend><span class="section-number">03</span>Availability and Publication</legend>
 <p class="section-description">Availability describes stock. Publication controls visibility on the website.</p><div class="form-grid">
@@ -245,15 +242,12 @@ if ($productId) {
           </select>
           <span class="help-text">Only items marked as PUBLISHED will appear on the public storefront.</span>
         </div>
-<div class="form-group">
-          <label for="availability_verified_at">Stock Verified Date</label>
-          <input type="datetime-local" step="1" id="availability_verified_at" name="availability_verified_at" value="<?= admin_h($_POST['availability_verified_at'] ?? (!empty($product['availability_verified_at']) ? substr(str_replace(' ', 'T', $product['availability_verified_at']), 0, 19) : '')) ?>">
-          <span class="help-text">Set only after you verify this information. Leave blank if not verified.</span>
-        </div>
+
 </div><p class="publish-note" id="publication-note" role="status"><?php if ($selectedPub === 'PUBLISHED'): ?>Saving publishes this product on the public website. Check its details before saving.<?php elseif ($selectedPub === 'ARCHIVED'): ?>Saving archives this product and removes it from the public website.<?php else: ?>Saving keeps this product private. Choose Published when it is ready to appear on the public website.<?php endif; ?> Carousell is managed separately.</p></fieldset>
 <fieldset class="editor-section"><legend><span class="section-number">04</span>Product Photographs</legend>
 <p class="section-description">Add genuine photographs. Existing photographs stay in place; use Make primary below to change the catalog cover.</p>
 <div class="form-grid"><div class="form-group full-width" data-photo-dropzone>
+  <?php admin_icon('upload', 'upload-icon'); ?>
   <label for="product_photo">Add product photographs</label>
   <input type="file" id="product_photo" name="product_photos[]" multiple accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" aria-describedby="photo-help photo-feedback" data-max-count="<?= (int)$uploadLimits['count'] ?>" data-max-file="<?= (int)$uploadLimits['file_bytes'] ?>" data-max-batch="<?= (int)$uploadLimits['batch_bytes'] ?>">
   <p class="help-text" id="photo-help">Choose or drop up to <?= (int)$uploadLimits['count'] ?> JPEG, PNG or WebP images. Each up to <?= admin_h(number_format($uploadLimits['file_bytes']/1048576, 1)) ?> MB; combined up to <?= admin_h(number_format($uploadLimits['batch_bytes']/1048576, 1)) ?> MB. Up to 8192 pixels per side / 16 million pixels. Images are sanitized when saved. The first saved photograph becomes primary if none exists.</p>
@@ -277,8 +271,18 @@ if ($productId) {
   </div>
 <?php endif; ?>
 </fieldset>
-<fieldset class="editor-section"><legend><span class="section-number">05</span>Carousell Listing Link</legend>
-<p class="section-description">Connect an existing listing. Carousell updates are managed separately.</p><div class="form-grid">
+<fieldset class="editor-section"><legend><span class="section-number">05</span>Verification &amp; Listing Details</legend>
+<p class="section-description">Record verification dates and connect an existing listing. Carousell is managed separately.</p><div class="form-grid">
+<div class="form-group">
+          <label for="price_verified_at">Price Verified Date</label>
+          <input type="datetime-local" step="1" id="price_verified_at" name="price_verified_at" value="<?= admin_h($_POST['price_verified_at'] ?? (!empty($product['price_verified_at']) ? substr(str_replace(' ', 'T', $product['price_verified_at']), 0, 19) : '')) ?>">
+          <span class="help-text">Set only after you verify this information. Leave blank if not verified.</span>
+        </div>
+<div class="form-group">
+          <label for="availability_verified_at">Stock Verified Date</label>
+          <input type="datetime-local" step="1" id="availability_verified_at" name="availability_verified_at" value="<?= admin_h($_POST['availability_verified_at'] ?? (!empty($product['availability_verified_at']) ? substr(str_replace(' ', 'T', $product['availability_verified_at']), 0, 19) : '')) ?>">
+          <span class="help-text">Set only after you verify this information. Leave blank if not verified.</span>
+        </div>
 <div class="form-group">
           <label for="carousell_listing_url">Carousell Listing URL</label>
           <input type="url" id="carousell_listing_url" aria-describedby="carousell_listing_url-error" name="carousell_listing_url" placeholder="https://www.carousell.ph/p/..." value="<?= htmlspecialchars($_POST['carousell_listing_url'] ?? ($product['carousell_listing_url'] ?? ''), ENT_QUOTES, 'UTF-8') ?>">
