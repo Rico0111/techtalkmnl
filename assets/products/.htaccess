@@ -1,0 +1,7 @@
+# Catalog files are served only through /product-image.php so draft and
+# archived product photographs cannot be fetched by direct static URL.
+Options -Indexes
+<FilesMatch "\\.(php|phtml|php[0-9]|phps|cgi|pl|exe|sh|py)$">
+    Require all denied
+</FilesMatch>
+Require all denied

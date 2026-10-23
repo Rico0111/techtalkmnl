@@ -1,0 +1,7 @@
+# Disable directory browsing
+Options -Indexes
+
+# Deny direct HTTP access to raw customer review screenshots and evidence files
+<FilesMatch "^(IMG_.*|full-reference-sheet)\.(jpe?g|png)$">
+    Require all denied
+</FilesMatch>

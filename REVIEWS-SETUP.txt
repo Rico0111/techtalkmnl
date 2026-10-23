@@ -1,0 +1,31 @@
+TechTalk customer reviews — Phase E.4 source and accessibility notes
+
+The TRUST carousel (03 / TRUST) shows 24 comments transcribed from local Carousell review screenshots (assets/IMG_4467.jpg – assets/IMG_4490.jpg), ordered newest-first by the relative dates shown in the screenshots (5d → 2y). Each comment keeps the handle displayed with it, the relative date, and a five-star row as captured. The screenshots show the handles attached to those comments, but the supplied live profile could not be independently loaded (see below), so reviews and attributions remain SCREENSHOT_SUPPORTED, not live-verified. The headline count label reads "24 Customer Testimonials Featured" and refers only to the 24 locally evidenced entries — it does not claim the live profile's total.
+
+SOURCE LINKS AND EVIDENCE-SPECIFIC ACTIONS
+- The section CTA opens the authoritative seller reviews tab: https://www.carousell.ph/u/levjatics/?tab=reviews. This destination is supported by the historical short-link redirect and supplied by the owner; its current contents remain unconfirmed.
+- All 24 slide actions currently read "View Reviews on Carousell ↗" and explicitly identify a profile-level source in their accessible names. No individual review permalink or reviewed-listing URL could be confirmed. Do not label this fallback an exact review link.
+- reviews-data.json has optional reviewUrl, sourceListingUrl, sourceProfileUrl and linkVerification fields. All 24 entries currently have null reviewUrl/sourceListingUrl and PROFILE_ONLY linkVerification. Existing SCREENSHOT_SUPPORTED evidence classifications remain unchanged and are independent of link specificity.
+- A confirmed DIRECT_REVIEW_LINK uses "View Original Review ↗"; a confirmed SOURCE_LISTING_LINK uses "View Source Listing ↗"; otherwise use the canonical profile fallback. Never derive URLs from product titles or reinterpret an unrelated listing's seller-review widget as a reviewed listing. Verify a candidate's exact identity and public access before changing its classification.
+- To regenerate static slide anchors after an evidence-backed dataset update: node .agent-handoff/phase-e4-review-links/tools/build-review-links.cjs. This local helper does not fetch data or run on the website. Its conservative URL validation rejects bare profile/listing URLs as direct reviews; if Carousell supplies a different legitimate permalink format, inspect that evidence and update the guard before publication.
+- All external source actions use target="_blank" and rel="noopener noreferrer". Only the active slide's link is keyboard-focusable; existing carousel focus/hover/touch/reduced-motion pauses are preserved. No new runtime code, requests or timers were added.
+- Normal public profile browsing again returned HTTP 403 Cloudflare verification. No bypass was attempted. Public seller/reviewer searches covered all 24 entries. Cached widgets matched reviews 006–009, but their container listings did not identify the reviewed products. No source URL was invented.
+- All screenshots remain evidence-only: screenshotPublished=false for all 24. Thirteen were previously privacy-cleared; eleven were withheld. Privacy clearance is not approval to publish. The prior screenshot dialog stays removed. Original files remain unchanged; no screenshot action is rendered.
+- Full review-to-source mapping, research records, pre-edit backup and validation evidence: .agent-handoff/phase-e4-review-links/.
+
+DATES, RATINGS, PRICES
+- Dates are relative labels exactly as shown in the screenshots; no calendar date is inferred. Ratings show the five-star row visible at capture time — not a verified live rating. Product titles and prices visible in screenshots are historical, not current offers.
+
+REVIEW CONTROLS
+- Indicator buttons have 44 x 44 CSS-pixel hit areas with small visual dots; 24 dots, one per slide.
+- Pause reviews sets a persistent pause. Resume reviews enables rotation again only when interaction pauses are clear.
+- Focus anywhere in the carousel pauses movement. Hover/touch over review content pauses it temporarily. Background tabs pause playback.
+- Reduced motion disables autoplay and animated transitions. Returning to normal motion leaves playback paused until Resume reviews is selected.
+- Manual selection remains available in reduced motion. Slides expose position/attribution ("Review N of 24 from @handle"); only the selected slide (and its source link) is exposed to keyboard/assistive technology; the rest stay inert.
+- Automatic changes do not announce full reviews. Manual selection announces the review position and author.
+
+CONTENT SAFETY
+Do not invent reviews, totals, ratings, URLs, review dates, customer consent, or platform verification. Local screenshot transcription is not live-profile verification. The "24" count label must stay tied to the locally evidenced entries only and must not be presented as the live Carousell total. Customer feedback is not a Carousell endorsement.
+
+LOCAL EVIDENCE
+.agent-handoff/phase-d2-carousell-20261021/ contains this phase's checkpoint, pre-edit backup (backup/, backup/pre-live-link/), dataset (../../reviews-data.json), short-link/Cloudflare evidence, OCR output, before/after screenshots, validation scripts/results (phase-d2-qa, adapted phase-a/b/c regressions), VERIFICATION.md (24-entry table) and SCREENSHOT-INVENTORY.md. Phase D.1 evidence remains unchanged in .agent-handoff/phase-d1-trust-20261021/.

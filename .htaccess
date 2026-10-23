@@ -1,0 +1,31 @@
+# TechTalk Localhost Security & Privacy Configuration
+
+# Set DirectoryIndex so Apache serves index.php first, then index.html
+DirectoryIndex index.php index.html
+
+# Disable directory listing across the site
+Options -Indexes
+
+# Deny access to hidden files and directories (like .DS_Store, .agent-handoff)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Deny access to SQL migration scripts and internal documentation
+<FilesMatch "\.(sql|bak|log|md|jsonl)$">
+    Require all denied
+</FilesMatch>
+
+# Deny access to local configuration files
+<FilesMatch "^(config\.local\.php|config\.local\.example\.php)$">
+    Require all denied
+</FilesMatch>
+
+# Deny access to internal text notes and development documentation
+<FilesMatch "^(README|REVIEWS-SETUP|START-HERE)\.txt$">
+    Require all denied
+</FilesMatch>
+
+# Redirect a legacy static index.html to its containing directory (the dynamic
+# catalog). URL-path substitution keeps this portable between / and /techtok/.
+RedirectMatch 301 ^(.*)/index\.html$ $1/

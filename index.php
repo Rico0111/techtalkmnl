@@ -1,0 +1,537 @@
+<?php
+/**
+ * TechTalk Digital Profile — Dynamic Product Showcase Integration
+ * Authoritative MySQL product catalog with graceful fallback.
+ */
+
+define('TECHTALK_INIT', true);
+require_once __DIR__ . '/includes/products.php';
+require_once __DIR__ . '/includes/security.php';
+send_security_headers();
+
+$publishedProducts = get_published_products();
+$hasGenuineProducts = !empty($publishedProducts);
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="TechTalk — buy, sell, and trade gaming laptops, MacBooks, and gadgets.">
+  <meta name="theme-color" content="#050d18">
+  <title>TechTalk | Buy • Sell • Trade</title>
+  <link rel="icon" href="assets/techtalk-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="motion.css">
+</head>
+<body class="signal-motion">
+  <a class="skip-link" href="#top">Skip to main content</a>
+  <div class="ambient-layer" aria-hidden="true">
+    <div class="ambient ambient-top"></div>
+    <div class="ambient ambient-bottom"></div>
+  </div>
+
+  <div class="signal-bar" id="signalBar">
+    <a class="signal-bar-brand" href="#top" aria-label="TechTalk home">
+      <span class="signal-bar-logo" aria-hidden="true"></span>
+      <span class="sr-only">TechTalk</span>
+    </a>
+    <nav class="signal-bar-nav" aria-label="Section shortcuts">
+      <a href="#contact">Contact</a>
+      <a href="#available-units">Products</a>
+      <a href="#carousell-reviews">Reviews</a>
+      <a href="#meetups">Meetups</a>
+    </nav>
+    <span class="signal-bar-readout" id="signalProgressValue" aria-hidden="true">0%</span>
+    <a class="signal-bar-cta" href="https://www.facebook.com/T3kTok" target="_blank" rel="noopener noreferrer">Contact <span aria-hidden="true">↗</span></a>
+    <span class="signal-progress" aria-hidden="true"><span class="signal-progress-fill" id="signalProgressFill"></span></span>
+  </div>
+
+  <header class="site-header wrap">
+    <a class="brand" href="#top" aria-label="TechTalk home">
+      <img src="assets/techtalk-logo.png" srcset="assets/techtalk-logo-opt.png 512w, assets/techtalk-logo.png 2048w" sizes="120px" alt="TechTalk Buy Sell Trade logo" width="124" height="83">
+    </a>
+    <div class="header-side">
+      <p class="header-meta">Manila · By appointment</p>
+      <div class="nfc-pill"><span class="nfc-dot"><span class="entry-pulse" aria-hidden="true"></span></span> NFC READY</div>
+    </div>
+  </header>
+
+  <main id="top" class="wrap" tabindex="-1">
+    <section class="hero">
+      <div class="hero-layout">
+        <div class="hero-content">
+          <span class="signal-trace" aria-hidden="true"><span class="signal-trace-fill"></span><span class="signal-trace-node"></span></span>
+          <p class="eyebrow">YOUR GADGET CONNECTION</p>
+          <h1 class="hero-title"><span class="hero-word hero-intro">Buy · Sell · Trade</span> <span class="hero-word hero-name">TechTalk</span></h1>
+          <p class="hero-copy">Buy, Sell &amp; Trade Laptops, MacBooks, and Gadgets.</p>
+          <div class="hero-actions">
+            <a class="primary-contact" id="primaryContactLink" href="https://www.facebook.com/T3kTok" target="_blank" rel="noopener noreferrer">Contact via Facebook <span aria-hidden="true">↗</span></a>
+            <a class="browse-products" href="#available-units">Explore Products</a>
+            <a class="browse-reviews" href="#carousell-reviews">Customer Reviews</a>
+          </div>
+          <nav class="quick-nav" aria-label="Quick section navigation">
+            <a href="#available-units">Products</a>
+            <a href="#carousell-reviews">Reviews</a>
+            <a href="#meetups">Meetups</a>
+            <a href="#contact">Contact</a>
+          </nav>
+        </div>
+        <div class="signal-map" aria-hidden="true">
+          <div class="edition-caption"><span>TECHTALK / DIGITAL PROFILE</span><span>↗</span></div>
+          <div class="signal-receiver">
+            <img src="assets/macbooks.jpg" alt="" width="406" height="298">
+            <span class="hero-sticker hero-sticker-a" id="reviewHeroBadge">24 featured testimonials</span>
+            <span class="hero-sticker hero-sticker-b">NFC profile</span>
+            <div class="receiver-footer"><strong>TAP. CONNECT.<br>TRADE.</strong><span>NFC<br>PROFILE ↗</span></div>
+          </div>
+          <div class="edition-caption"><span>LAPTOPS / MACBOOKS / GADGETS</span><span class="edition-signal">)))</span></div>
+        </div>
+      </div>
+
+      <div class="hero-meta" aria-hidden="true">
+        <span>Manila · PH</span>
+        <span>Gaming Laptops / MacBooks / Gadgets</span>
+        <span>Meetups by appointment</span>
+      </div>
+
+      <div class="trust-row">
+        <div class="trust-item"><span class="trust-icon" aria-hidden="true">✓</span><div><strong>QUALITY UNITS</strong><small>TESTED &amp; CHECKED</small></div></div>
+        <div class="trust-item"><span class="trust-icon" aria-hidden="true">↔</span><div><strong>FAIR DEALS</strong><small>BUY · SELL · TRADE</small></div></div>
+        <div class="trust-item"><span class="trust-icon" aria-hidden="true">★</span><div><strong>REAL TRANSACTIONS</strong><small>VOUCHES &amp; REVIEWS</small></div></div>
+      </div>
+    </section>
+
+    <section class="link-grid" id="contact" tabindex="-1" aria-labelledby="contactTitle">
+      <div class="scene-marker" aria-hidden="true"><span>01 / CONNECTIONS</span><span class="scene-rule"></span></div>
+      <h2 class="contact-heading" id="contactTitle">Contact and <br>social links<span aria-hidden="true">↗</span></h2>
+      <a class="link-card facebook" id="facebookLink" href="https://www.facebook.com/T3kTok" target="_blank" rel="noopener noreferrer">
+        <span aria-hidden="true" class="link-icon brand-icon"><img class="brand-logo facebook-logo" src="assets/brands/facebook.png" width="28" height="28" alt="" decoding="async"></span>
+        <span class="link-text"><strong>Visit Our Facebook</strong><small>Listings, updates &amp; client feedback</small></span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </a>
+      <a class="link-card tiktok" id="tiktokLink" href="https://www.tiktok.com/@techtalk.mnl" target="_blank" rel="noopener noreferrer">
+        <span aria-hidden="true" class="link-icon brand-icon"><img class="brand-logo tiktok-logo" src="assets/brands/tiktok.png" width="42" height="42" alt="" decoding="async"></span>
+        <span class="link-text"><strong>Follow Us on TikTok</strong><small>Deals and transaction videos</small></span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </a>
+      <a class="link-card carousell" id="carousellLink" href="https://carousell.app.link/adRg0xeio7b" target="_blank" rel="noopener noreferrer">
+        <span aria-hidden="true" class="link-icon brand-icon"><img class="brand-logo carousell-logo" src="assets/brands/carousell.png" width="34" height="34" alt="" decoding="async"></span>
+        <span class="link-text"><strong>Shop on Carousell</strong><small>Browse our available units</small></span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </a>
+      <a class="link-card messenger" id="messengerLink" href="https://www.facebook.com/T3kTok" target="_blank" rel="noopener noreferrer">
+        <span aria-hidden="true" class="link-icon brand-icon"><img class="brand-logo facebook-logo" src="assets/brands/facebook.png" width="28" height="28" alt="" decoding="async"></span>
+        <span class="link-text"><strong>Contact via Facebook</strong><small>Open our page to inquire</small></span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </a>
+      <a class="link-card google" id="googleReviewLink" href="https://www.google.com/maps/place/Techtalkmnl/@14.6836592,121.0623946,12z/data=!3m1!4b1!4m6!3m5!1s0x66f543bb3663e8bb:0xa008923980d609d0!8m2!3d14.6836592!4d121.0623946!16s%2Fg%2F11p27rmbb4?entry=ttu" target="_blank" rel="noopener noreferrer" aria-label="Google Reviews: view our business on Google Maps (opens in a new tab)">
+        <span aria-hidden="true" class="link-icon brand-icon"><img class="brand-logo google-logo" src="assets/brands/google.svg" width="28" height="28" alt="" decoding="async"></span>
+        <span class="link-text"><strong>Google Reviews</strong><small>View our business on Google Maps</small></span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </a>
+      <button class="link-card contact" id="saveContactButton" type="button">
+        <span aria-hidden="true" class="link-icon contact-mark">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1c0-2 4-3.1 6-3.1s6 1.1 6 3.1v1z"/>
+          </svg>
+        </span>
+        <span class="link-text"><strong>Save Our Contact</strong><small>Keep TechTalk in your contacts</small></span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </button>
+    </section>
+
+    <section class="category-section panel">
+      <div class="section-heading"><div><p class="eyebrow">WHAT WE DEAL IN</p><h2>Laptops, MacBooks &amp; More</h2></div><span class="heading-line" aria-hidden="true"></span></div>
+      <div class="category-grid">
+        <article class="category-card"><div class="category-art gaming-art"><img src="assets/gaming-laptops.jpg" alt="Gaming laptops"></div><h3>Gaming Laptops</h3><p>Acer · Asus · MSI · Lenovo<br>and more</p></article>
+        <article class="category-card"><div class="category-art mac-art"><img src="assets/macbooks.jpg" alt="MacBooks"></div><h3>MacBooks</h3><p>Air · Pro · Other Models</p></article>
+        <article class="category-card"><div class="category-art gadgets-art"><img src="assets/gadgets.jpg" alt="Gadgets including phones and tablets"></div><h3>Gadgets</h3><p>Laptops · Phones · Tablets<br>Accessories and more</p></article>
+        <article class="category-card"><div class="category-art trade-art"><img src="assets/buy-sell-trade.jpg" alt="Buy sell trade gadgets"></div><h3>Buy · Sell · Trade</h3><p>Looking to sell or swap?<br>Message us!</p></article>
+      </div>
+    </section>
+
+    <?php if ($hasGenuineProducts): ?>
+      <!-- Dynamic Genuine MySQL Catalog -->
+      <section class="units-section panel <?= count($publishedProducts) > 6 ? 'catalog-grid-mode' : '' ?>" id="available-units" data-catalog-revision="db-<?= md5(json_encode(array_column($publishedProducts, 'id'))) ?>" tabindex="-1" aria-label="Verified available products">
+        <div class="scene-marker" aria-hidden="true"><span>02 / PRODUCTS</span><span class="scene-rule"></span></div>
+        <div class="section-heading units-heading">
+          <div>
+            <p class="eyebrow">VERIFIED INVENTORY</p>
+            <h2>Available Units &amp; Offers</h2>
+            <p class="units-subtitle">Verified products currently available for meetup or delivery. Inquire with reference code for specs and reservation.</p>
+          </div>
+          <div class="slider-controls" aria-label="Product showcase slider controls">
+            <button class="slider-arrow" id="unitsPrev" type="button" aria-label="Previous showcase position" aria-controls="unitsSlider">‹</button>
+            <button class="slider-arrow" id="unitsNext" type="button" aria-label="Next showcase position" aria-controls="unitsSlider">›</button>
+          </div>
+        </div>
+
+        <div class="units-slider" id="unitsSlider" tabindex="0" role="region" aria-label="Scrollable verified products">
+          <?php foreach ($publishedProducts as $index => $prod): ?>
+            <article class="unit-card catalog-card" data-product-number="<?= (int)$index + 1 ?>" <?= !empty($prod['availability_verified_at']) ? 'data-stock-valid-until="' . htmlspecialchars(date('c', strtotime($prod['availability_verified_at'] . ' + 14 days')), ENT_QUOTES, 'UTF-8') . '"' : '' ?> <?= !empty($prod['price_verified_at']) ? 'data-price-valid-until="' . htmlspecialchars(date('c', strtotime($prod['price_verified_at'] . ' + 14 days')), ENT_QUOTES, 'UTF-8') . '"' : '' ?>>
+              <?php $gallery = $prod['images'] ?? []; ?>
+              <div class="unit-image">
+                <?php if ($gallery): $cover = $gallery[0]; ?>
+                  <a class="product-photo-link" data-gallery-link href="<?= htmlspecialchars(product_image_url($cover['image_path']), ENT_QUOTES, 'UTF-8') ?>" aria-label="<?= htmlspecialchars('View '.$prod['title'].' photograph 1 of '.count($gallery), ENT_QUOTES, 'UTF-8') ?>">
+                    <img src="<?= htmlspecialchars(product_image_url($cover['image_path'], true), ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($cover['alt_text'] ?: $prod['title'], ENT_QUOTES, 'UTF-8') ?>" loading="lazy" decoding="async">
+                    <span class="product-photo-count"><?= count($gallery) ?> photo<?= count($gallery) === 1 ? '' : 's' ?> · View</span>
+                  </a>
+                <?php else: ?>
+                  <img src="assets/buy-sell-trade.jpg" alt="Product photograph not yet available" loading="lazy" decoding="async">
+                <?php endif; ?>
+                <span class="unit-status"><?= htmlspecialchars($prod['availability_status'], ENT_QUOTES, 'UTF-8') ?></span>
+              </div>
+              <?php if (count($gallery) > 1): ?>
+              <div class="product-thumbnails" aria-label="Additional product photographs">
+                <?php foreach (array_slice($gallery, 1) as $photoIndex => $photo): ?>
+                <a data-gallery-link href="<?= htmlspecialchars(product_image_url($photo['image_path']), ENT_QUOTES, 'UTF-8') ?>" aria-label="<?= htmlspecialchars('View '.$prod['title'].' photograph '.($photoIndex + 2).' of '.count($gallery), ENT_QUOTES, 'UTF-8') ?>">
+                  <img src="<?= htmlspecialchars(product_image_url($photo['image_path'], true), ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($photo['alt_text'] ?: $prod['title'], ENT_QUOTES, 'UTF-8') ?>" loading="lazy" decoding="async" width="72" height="58">
+                </a>
+                <?php endforeach; ?>
+              </div>
+              <?php endif; ?>
+              <div class="unit-details">
+                <span class="unit-ref-badge">REF: <?= htmlspecialchars($prod['product_code'], ENT_QUOTES, 'UTF-8') ?></span>
+                <p class="unit-type"><?= htmlspecialchars(strtoupper($prod['category_name']), ENT_QUOTES, 'UTF-8') ?> · <?= htmlspecialchars($prod['condition_label'], ENT_QUOTES, 'UTF-8') ?></p>
+                <h3><?= htmlspecialchars($prod['title'], ENT_QUOTES, 'UTF-8') ?></h3>
+                <p class="unit-specs"><?= htmlspecialchars($prod['description'] ?? '', ENT_QUOTES, 'UTF-8') ?></p>
+                <div class="unit-bottom">
+                  <strong class="unit-price">
+                    <small class="unit-price-note"><?= !empty($prod['price_verified_at']) ? 'Price checked' : 'Listed price' ?></small>
+                    <?= $prod['formatted_price'] ?>
+                  </strong>
+                  <div class="unit-actions-row">
+                    <button class="unit-copy-btn" type="button" data-ref="<?= htmlspecialchars($prod['product_code'], ENT_QUOTES, 'UTF-8') ?>" data-copy-text="TechTalk Inquiry — <?= htmlspecialchars($prod['title'], ENT_QUOTES, 'UTF-8') ?> (Ref: <?= htmlspecialchars($prod['product_code'], ENT_QUOTES, 'UTF-8') ?>)" aria-label="Copy <?= htmlspecialchars($prod['title'], ENT_QUOTES, 'UTF-8') ?> inquiry details">Copy Ref</button>
+                    <?php if ($listingUrl = product_listing_url($prod['carousell_listing_url'])): ?>
+                      <a class="unit-inquire" aria-label="View <?= htmlspecialchars($prod['title'], ENT_QUOTES, 'UTF-8') ?> on Carousell" href="<?= htmlspecialchars($listingUrl, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer">Carousell <span aria-hidden="true">↗</span></a>
+                    <?php else: ?>
+                      <a class="unit-inquire" aria-label="Inquire about <?= htmlspecialchars($prod['title'], ENT_QUOTES, 'UTF-8') ?>" href="https://www.facebook.com/T3kTok" target="_blank" rel="noopener noreferrer">Inquire <span aria-hidden="true">↗</span></a>
+                    <?php endif; ?>
+                  </div>
+                </div>
+              </div>
+            </article>
+          <?php endforeach; ?>
+        </div>
+        <nav class="catalog-pagination" aria-label="Product pages" hidden>
+          <button id="catalogPrev" type="button" aria-controls="unitsSlider">Previous</button>
+          <span id="catalogPageLabel">Page 1</span>
+          <button id="catalogNext" type="button" aria-controls="unitsSlider">Next</button>
+        </nav>
+        <p class="sr-only" id="catalogStatus" role="status" aria-live="polite"></p>
+        <div class="unit-guidance-card">
+          <strong>Verified Inventory &amp; Buyer Protection</strong>
+          <p>Every genuine unit listed is inspected before meetup. When inquiring, provide the reference code for fast reservation, testing appointments, and warranty confirmation.</p>
+        </div>
+        <div class="units-slider-footer">
+          <div class="units-dots" id="unitsDots" aria-label="Slider position">
+            <?php foreach ($publishedProducts as $i => $p): ?>
+              <button class="units-dot <?= $i === 0 ? 'active' : '' ?>" type="button" aria-label="Go to product <?= $i + 1 ?>" data-slide="<?= $i ?>"></button>
+            <?php endforeach; ?>
+          </div>
+          <span class="units-hint">← Swipe or use arrows →</span>
+        </div>
+      </section>
+    <?php else: ?>
+      <!-- Showcase Fallback (Active when zero genuine products are published) -->
+      <section class="units-section panel" id="available-units" data-catalog-revision="8b1b5cbb791fce01ebaafbcdb84518789a657b2416d53f6c50d21bf1395d3be7" tabindex="-1" aria-label="Product showcase examples">
+        <div class="scene-marker" aria-hidden="true"><span>02 / SHOWROOM</span><span class="scene-rule"></span></div>
+        <div class="section-heading units-heading">
+          <div>
+            <p class="eyebrow">TECHTALK SHOWCASE</p>
+            <h2>Product Showcase</h2>
+            <p class="units-subtitle">Examples only. Specifications and prices are illustrative, not verified stock or current offers. Message us for current units and pricing.</p>
+          </div>
+          <div class="slider-controls" aria-label="Product showcase slider controls">
+            <button class="slider-arrow" id="unitsPrev" type="button" aria-label="Previous showcase position" aria-controls="unitsSlider">‹</button>
+            <button class="slider-arrow" id="unitsNext" type="button" aria-label="Next showcase position" aria-controls="unitsSlider">›</button>
+          </div>
+        </div>
+
+        <div class="units-slider" id="unitsSlider" tabindex="0" role="region" aria-label="Scrollable product showcase">
+          <article class="unit-card">
+            <div class="unit-image"><img src="assets/macbooks.jpg" alt="MacBook showcase artwork"><span class="product-scan" aria-hidden="true"></span><span class="unit-status">SHOWCASE EXAMPLE</span></div>
+            <div class="unit-details">
+              <span class="unit-ref-badge">REF: TT-MB-16512</span>
+              <p class="unit-type">MACBOOKS</p>
+              <h3>MacBook 16/512GB</h3>
+              <p class="unit-specs">Macbook Neo, Macbook Air M3, Macbook Air M4, Macbook Air M5 </p>
+              <div class="unit-bottom">
+                <strong class="unit-price"><small class="unit-price-note">Example price</small>₱ 71,990</strong>
+                <div class="unit-actions-row">
+                  <button class="unit-copy-btn" type="button" data-ref="TT-MB-16512" data-copy-text="TechTalk Inquiry — MacBook 16/512GB (Ref: TT-MB-16512)" aria-label="Copy MacBook 16/512GB inquiry details">Copy Ref</button>
+                  <a class="unit-inquire" aria-label="Inquire about MacBook 16/512GB" href="https://www.facebook.com/T3kTok" target="_blank" rel="noopener noreferrer">Inquire <span aria-hidden="true">↗</span></a>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="unit-card">
+            <div class="unit-image"><img src="assets/Macbook.png" srcset="assets/Macbook-opt.png 800w, assets/Macbook.png 1536w" sizes="(max-width: 600px) 300px, 400px" alt="MacBook showcase artwork"><span class="product-scan" aria-hidden="true"></span><span class="unit-status">SHOWCASE EXAMPLE</span></div>
+            <div class="unit-details">
+              <span class="unit-ref-badge">REF: TT-MB-8256</span>
+              <p class="unit-type">Macbooks</p>
+              <h3>Macbook 8/256GB</h3>
+              <p class="unit-specs">Macbook Neo.</p>
+              <div class="unit-bottom">
+                <strong class="unit-price"><small class="unit-price-note">Example price</small>₱ 44,990</strong>
+                <div class="unit-actions-row">
+                  <button class="unit-copy-btn" type="button" data-ref="TT-MB-8256" data-copy-text="TechTalk Inquiry — Macbook 8/256GB (Ref: TT-MB-8256)" aria-label="Copy Macbook 8/256GB inquiry details">Copy Ref</button>
+                  <a class="unit-inquire" aria-label="Inquire about Macbook 8/256GB" href="https://www.facebook.com/T3kTok" target="_blank" rel="noopener noreferrer">Inquire <span aria-hidden="true">↗</span></a>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="unit-card">
+            <div class="unit-image"><img src="assets/gaming-laptops.jpg" alt="Gaming laptop showcase artwork"><span class="product-scan" aria-hidden="true"></span><span class="unit-status">SHOWCASE EXAMPLE</span></div>
+            <div class="unit-details">
+              <span class="unit-ref-badge">REF: TT-GM-RTX</span>
+              <p class="unit-type">Gaming Laptop &amp; MORE</p>
+              <h3>Gaming Laptop RTX 40/50 Series </h3>
+              <p class="unit-specs">Acer Nitro V15 RTX 5050 32GB RAM</p>
+              <div class="unit-bottom">
+                <strong class="unit-price"><small class="unit-price-note">Example price</small>₱ 54,990</strong>
+                <div class="unit-actions-row">
+                  <button class="unit-copy-btn" type="button" data-ref="TT-GM-RTX" data-copy-text="TechTalk Inquiry — Gaming Laptop RTX 40/50 Series (Ref: TT-GM-RTX)" aria-label="Copy Gaming Laptop RTX 40/50 Series inquiry details">Copy Ref</button>
+                  <a class="unit-inquire" aria-label="Inquire about Gaming Laptop RTX 40/50 Series" href="https://www.facebook.com/T3kTok" target="_blank" rel="noopener noreferrer">Inquire <span aria-hidden="true">↗</span></a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="unit-guidance-card">
+          <strong>Buyer Inquiry Checklist</strong>
+          <p>Showcase examples only. When messaging us on Facebook, we recommend inquiring about: (1) battery health &amp; cycle count, (2) cosmetic condition &amp; casing grade, (3) included charger &amp; accessories, and (4) testing upon meetup with personal warranty confirmation.</p>
+        </div>
+        <div class="units-slider-footer">
+          <div class="units-dots" id="unitsDots" aria-label="Slider position">
+            <button class="units-dot active" type="button" aria-label="Go to first unit" data-slide="0"></button>
+            <button class="units-dot" type="button" aria-label="Go to second unit" data-slide="1"></button>
+            <button class="units-dot" type="button" aria-label="Go to third unit" data-slide="2"></button>
+          </div>
+          <span class="units-hint">← Swipe or use arrows →</span>
+        </div>
+      </section>
+    <?php endif; ?>
+
+    <section class="reviews-showcase panel" id="carousell-reviews" tabindex="-1" aria-labelledby="reviewsTitle" aria-roledescription="carousel">
+      <div class="scene-marker" aria-hidden="true"><span>03 / TRUST</span><span class="scene-rule"></span></div>
+      <div class="reviews-showcase-heading">
+        <div>
+          <p class="eyebrow">CUSTOMER FEEDBACK</p>
+          <h2 id="reviewsTitle">Real deals. Real feedback.</h2>
+          <p class="reviews-intro">Customer experiences shared through our Carousell profile.</p>
+          <p class="review-count" id="reviewCount"><strong>24</strong> Customer Testimonials Featured</p>
+          <p class="review-source-label">Customer Reviews · Carousell @levjatics</p>
+          <a class="review-source-link" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" aria-label="View all customer reviews on Carousell for levjatics (opens in a new tab)">View All Reviews on Carousell <span aria-hidden="true">↗</span></a>
+          <p class="review-source-note">Featured testimonials are a selection, not a platform total. Archived screenshot dates reflect capture-time labels, not live dates. Profile links do not identify individual reviews. Feedback is not a platform endorsement.</p>
+        </div>
+      </div>
+
+      <div class="reviews-window" id="reviewsWindow">
+        <div class="reviews-track" id="reviewsTrack" aria-live="off">
+<div class="review-slide" data-review-id="review-001" id="review-slide-review-001" role="group" aria-roledescription="slide" aria-label="Review 1 of 24 from @matthewoyos_"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">Seller is very easy to deal with, plus the unit is in pristine condition. Would buy again from him next time!</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">5d</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@matthewoyos_</strong></figcaption><a class="review-live-link" data-review-id="review-001" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="0" aria-label="View Reviews on Carousell; profile-level source; feedback by @matthewoyos_; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-002" id="review-slide-review-002" role="group" aria-roledescription="slide" aria-label="Review 2 of 24 from @maximammal"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">First time buying from Carousell so I was skeptical at first, but the seller’s past reviews and solid customer service convinced me! The whole transaction took only 24 hours lang despite messaging at night. Seller was very accommodating, helped me check the unit, and gave good assurance on the warranty. Super happy with my purchase! Life saver for real! 🥹💻</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">2w</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@maximammal</strong></figcaption><a class="review-live-link" data-review-id="review-002" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @maximammal; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-003" id="review-slide-review-003" role="group" aria-roledescription="slide" aria-label="Review 3 of 24 from @goldenfish-01f0"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">legit seller! totally recommended!</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">3w</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@goldenfish-01f0</strong></figcaption><a class="review-live-link" data-review-id="review-003" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @goldenfish-01f0; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-004" id="review-slide-review-004" role="group" aria-roledescription="slide" aria-label="Review 4 of 24 from @lavisprelovedproject"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">Seller is responsive not just for the sake of replying but really in giving me the info I needed. Also gave his assurance na I can chat him for any question I might have in the future about the unit. Item is in pristine condition din as listed. Sa uulitin!</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">4w</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@lavisprelovedproject</strong></figcaption><a class="review-live-link" data-review-id="review-004" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @lavisprelovedproject; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-005" id="review-slide-review-005" role="group" aria-roledescription="slide" aria-label="Review 5 of 24 from @jdelizo"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">Really really nice and accommodating, no joke. Thanks man!</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">5w</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@jdelizo</strong></figcaption><a class="review-live-link" data-review-id="review-005" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @jdelizo; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-006" id="review-slide-review-006" role="group" aria-roledescription="slide" aria-label="Review 6 of 24 from @albertll"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">Great guy, arrived early and item was in excellent condition. Fast transaction.</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">7w</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@albertll</strong></figcaption><a class="review-live-link" data-review-id="review-006" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @albertll; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-007" id="review-slide-review-007" role="group" aria-roledescription="slide" aria-label="Review 7 of 24 from @flyingwheatbread"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">Fast and easy. Seller was kind and honest too. Thank you for selling</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">9w</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@flyingwheatbread</strong></figcaption><a class="review-live-link" data-review-id="review-007" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @flyingwheatbread; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-008" id="review-slide-review-008" role="group" aria-roledescription="slide" aria-label="Review 8 of 24 from @cutetakoyaki"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">Smooth transaction, responsive seller, item is in pristine condition</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">9w</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@cutetakoyaki</strong></figcaption><a class="review-live-link" data-review-id="review-008" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @cutetakoyaki; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-009" id="review-slide-review-009" role="group" aria-roledescription="slide" aria-label="Review 9 of 24 from @helloitskris"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">Easy to transact with. Smooth and hassle-free transaction. Highly recommended!</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">12w</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@helloitskris</strong></figcaption><a class="review-live-link" data-review-id="review-009" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @helloitskris; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-010" id="review-slide-review-010" role="group" aria-roledescription="slide" aria-label="Review 10 of 24 from @wejinaweina"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">salamat po for being flexible and traveling so far. best value and best price sa market. 100% recommended!</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">18w</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@wejinaweina</strong></figcaption><a class="review-live-link" data-review-id="review-010" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @wejinaweina; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-011" id="review-slide-review-011" role="group" aria-roledescription="slide" aria-label="Review 11 of 24 from @tazosecret"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">Super smooth ka-deal si seller! Legit yung MacBook Air, parang brand new pa. Mabilis kausap and safe packaging. Sulit, thank you!</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">25w</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@tazosecret</strong></figcaption><a class="review-live-link" data-review-id="review-011" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @tazosecret; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-012" id="review-slide-review-012" role="group" aria-roledescription="slide" aria-label="Review 12 of 24 from @epicwind.594d11"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">It was a great experience purchasing the item through a meet-up setup. The seller was very accommodating and patiently showed us the important details to check on the Mac to make sure it was exactly as listed. Everything was transparent and smooth. Highly recommended seller!</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">32w</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@epicwind.594d11</strong></figcaption><a class="review-live-link" data-review-id="review-012" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @epicwind.594d11; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-013" id="review-slide-review-013" role="group" aria-roledescription="slide" aria-label="Review 13 of 24 from @ali.boy"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">very straight to the point and easy to talk to tsaka he even helped point out what things to check!</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">40w</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@ali.boy</strong></figcaption><a class="review-live-link" data-review-id="review-013" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @ali.boy; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-014" id="review-slide-review-014" role="group" aria-roledescription="slide" aria-label="Review 14 of 24 from @janinejoyce"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">Thank you for a very smooth transaction, 100% legit and straightforward seller. Will definitely have another transaction in the future.</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">42w</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@janinejoyce</strong></figcaption><a class="review-live-link" data-review-id="review-014" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @janinejoyce; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-015" id="review-slide-review-015" role="group" aria-roledescription="slide" aria-label="Review 15 of 24 from @boldtree-7b02"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">I highly recommend this online shop. 🥰 Just got my macbook Air M1 today! I am very excited! thank you sir lev 🥰 very fast transaction.. fast delivery..ikaw pa tlaga ang nag deliver. very reliable and accomodating seller 😊 thank you. Godbless. Til our nxt transaction 👍☺️</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">47w</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@boldtree-7b02</strong></figcaption><a class="review-live-link" data-review-id="review-015" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @boldtree-7b02; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-016" id="review-slide-review-016" role="group" aria-roledescription="slide" aria-label="Review 16 of 24 from @ho_niks"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">Responsive and legit seller! Very nice and reassuring also.</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">50w</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@ho_niks</strong></figcaption><a class="review-live-link" data-review-id="review-016" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @ho_niks; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-017" id="review-slide-review-017" role="group" aria-roledescription="slide" aria-label="Review 17 of 24 from @jpsstore"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">legit seller! mabait and super fast lang ng transaction namin 🤍</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">1y</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@jpsstore</strong></figcaption><a class="review-live-link" data-review-id="review-017" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @jpsstore; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-018" id="review-slide-review-018" role="group" aria-roledescription="slide" aria-label="Review 18 of 24 from @cjpfaulmin50726"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">Seller is transparent and responds promptly. Item is also reasonably priced. Still testing the unit, but positive overall experience so far.</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">1y</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@cjpfaulmin50726</strong></figcaption><a class="review-live-link" data-review-id="review-018" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @cjpfaulmin50726; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-019" id="review-slide-review-019" role="group" aria-roledescription="slide" aria-label="Review 19 of 24 from @mrzt0410"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">fast transaction and explains the item very well! till next time po! 🤍</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">1y</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@mrzt0410</strong></figcaption><a class="review-live-link" data-review-id="review-019" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @mrzt0410; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-020" id="review-slide-review-020" role="group" aria-roledescription="slide" aria-label="Review 20 of 24 from @erktan"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">Seller is so nice &amp; shows everything u need to see and explain everything abt the laptop! will def reco him!</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">1y</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@erktan</strong></figcaption><a class="review-live-link" data-review-id="review-020" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @erktan; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-021" id="review-slide-review-021" role="group" aria-roledescription="slide" aria-label="Review 21 of 24 from @vllnll"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">Legit so much</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">1y</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@vllnll</strong></figcaption><a class="review-live-link" data-review-id="review-021" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @vllnll; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-022" id="review-slide-review-022" role="group" aria-roledescription="slide" aria-label="Review 22 of 24 from @gleonio"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">Good job idol - boyfriend of op</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">1y</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@gleonio</strong></figcaption><a class="review-live-link" data-review-id="review-022" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @gleonio; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-023" id="review-slide-review-023" role="group" aria-roledescription="slide" aria-label="Review 23 of 24 from @amielzeus"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">It was a very smooth transaction. The seller was very nice and accommodating. This is my first gaming laptop and first purchase here in the app. Happy with the deal!</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">2y</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@amielzeus</strong></figcaption><a class="review-live-link" data-review-id="review-023" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @amielzeus; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+<div class="review-slide" data-review-id="review-024" id="review-slide-review-024" role="group" aria-roledescription="slide" aria-label="Review 24 of 24 from @rtariman"><figure class="review-placeholder"><span class="review-quote" aria-hidden="true">“</span><blockquote><p class="review-text">Thanks for the smooth transaction</p></blockquote><p class="review-meta"><span class="review-stars" role="img" aria-label="5 of 5 stars. Five-star row visible in saved screenshot">★★★★★</span><span class="review-date" title="Relative date preserved from the saved screenshot, not a live date">2y</span><span class="review-source-tag">Carousell</span></p><figcaption><strong>@rtariman</strong></figcaption><a class="review-live-link" data-review-id="review-024" data-source-kind="PROFILE_ONLY" href="https://www.carousell.ph/u/levjatics/?tab=reviews" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="View Reviews on Carousell; profile-level source; feedback by @rtariman; opens in a new tab">View Reviews on Carousell <span aria-hidden="true">↗</span></a></figure></div>
+        </div>
+      </div>
+      <div class="reviews-bottom">
+        <div class="reviews-nav-controls">
+          <button class="review-arrow" id="reviewPrev" type="button" aria-label="Previous review" aria-controls="reviewsTrack">‹</button>
+          <span class="reviews-index" id="reviewsIndex" aria-hidden="true">01 / 24</span>
+          <button class="review-arrow" id="reviewNext" type="button" aria-label="Next review" aria-controls="reviewsTrack">›</button>
+        </div>
+        <div class="reviews-progress" role="progressbar" aria-label="Review position" aria-valuenow="1" aria-valuemin="1" aria-valuemax="24">
+          <div class="reviews-progress-fill" id="reviewsProgressFill"></div>
+        </div>
+        <button class="review-toggle" id="reviewToggle" type="button" aria-controls="reviewsTrack" aria-describedby="reviewPlaybackNote">Pause reviews</button>
+        <span class="reviews-caption">Customer-generated feedback · not a platform endorsement</span>
+        <div class="reviews-dots" id="reviewsDots" aria-label="Review slide position">
+<button class="review-dot active" type="button" aria-label="Review slide 1 of 24" aria-controls="review-slide-review-001" aria-current="true" data-review-slide="0"></button>
+<button class="review-dot" type="button" aria-label="Review slide 2 of 24" aria-controls="review-slide-review-002" aria-current="false" data-review-slide="1"></button>
+<button class="review-dot" type="button" aria-label="Review slide 3 of 24" aria-controls="review-slide-review-003" aria-current="false" data-review-slide="2"></button>
+<button class="review-dot" type="button" aria-label="Review slide 4 of 24" aria-controls="review-slide-review-004" aria-current="false" data-review-slide="3"></button>
+<button class="review-dot" type="button" aria-label="Review slide 5 of 24" aria-controls="review-slide-review-005" aria-current="false" data-review-slide="4"></button>
+<button class="review-dot" type="button" aria-label="Review slide 6 of 24" aria-controls="review-slide-review-006" aria-current="false" data-review-slide="5"></button>
+<button class="review-dot" type="button" aria-label="Review slide 7 of 24" aria-controls="review-slide-review-007" aria-current="false" data-review-slide="6"></button>
+<button class="review-dot" type="button" aria-label="Review slide 8 of 24" aria-controls="review-slide-review-008" aria-current="false" data-review-slide="7"></button>
+<button class="review-dot" type="button" aria-label="Review slide 9 of 24" aria-controls="review-slide-review-009" aria-current="false" data-review-slide="8"></button>
+<button class="review-dot" type="button" aria-label="Review slide 10 of 24" aria-controls="review-slide-review-010" aria-current="false" data-review-slide="9"></button>
+<button class="review-dot" type="button" aria-label="Review slide 11 of 24" aria-controls="review-slide-review-011" aria-current="false" data-review-slide="10"></button>
+<button class="review-dot" type="button" aria-label="Review slide 12 of 24" aria-controls="review-slide-review-012" aria-current="false" data-review-slide="11"></button>
+<button class="review-dot" type="button" aria-label="Review slide 13 of 24" aria-controls="review-slide-review-013" aria-current="false" data-review-slide="12"></button>
+<button class="review-dot" type="button" aria-label="Review slide 14 of 24" aria-controls="review-slide-review-014" aria-current="false" data-review-slide="13"></button>
+<button class="review-dot" type="button" aria-label="Review slide 15 of 24" aria-controls="review-slide-review-015" aria-current="false" data-review-slide="14"></button>
+<button class="review-dot" type="button" aria-label="Review slide 16 of 24" aria-controls="review-slide-review-016" aria-current="false" data-review-slide="15"></button>
+<button class="review-dot" type="button" aria-label="Review slide 17 of 24" aria-controls="review-slide-review-017" aria-current="false" data-review-slide="16"></button>
+<button class="review-dot" type="button" aria-label="Review slide 18 of 24" aria-controls="review-slide-review-018" aria-current="false" data-review-slide="17"></button>
+<button class="review-dot" type="button" aria-label="Review slide 19 of 24" aria-controls="review-slide-review-019" aria-current="false" data-review-slide="18"></button>
+<button class="review-dot" type="button" aria-label="Review slide 20 of 24" aria-controls="review-slide-review-020" aria-current="false" data-review-slide="19"></button>
+<button class="review-dot" type="button" aria-label="Review slide 21 of 24" aria-controls="review-slide-review-021" aria-current="false" data-review-slide="20"></button>
+<button class="review-dot" type="button" aria-label="Review slide 22 of 24" aria-controls="review-slide-review-022" aria-current="false" data-review-slide="21"></button>
+<button class="review-dot" type="button" aria-label="Review slide 23 of 24" aria-controls="review-slide-review-023" aria-current="false" data-review-slide="22"></button>
+<button class="review-dot" type="button" aria-label="Review slide 24 of 24" aria-controls="review-slide-review-024" aria-current="false" data-review-slide="23"></button>
+        </div>
+      </div>
+      <p class="review-playback-note" id="reviewPlaybackNote">Reviews change every 4 seconds.</p>
+      <p class="sr-only" id="reviewStatus" role="status" aria-live="polite" aria-atomic="true"></p>
+    </section>
+
+    <section class="meetup-section panel" id="meetups" tabindex="-1" aria-labelledby="meetupTitle">
+      <div class="scene-marker" aria-hidden="true"><span>04 / MEETUPS</span><span class="scene-rule"></span></div>
+      <div class="meetup-heading">
+        <div class="meetup-heading-content">
+          <h2 id="meetupTitle">Meetup locations</h2>
+        </div>
+        <div class="meetup-intro-copy">
+          <p class="meetup-desc">We can arrange meetups at selected locations across Metro Manila. All meetups are by appointment and subject to confirmation.</p>
+          <p class="meetup-meta-card">9 Meetup Locations <span aria-hidden="true">·</span> Metro Manila</p>
+        </div>
+      </div>
+      <div class="location-list">
+        <article class="location-chip" aria-labelledby="location-sm-north">
+          <div class="location-thumb">
+            <img class="location-photo" src="assets/meetups/sm-north.jpg" alt="SM North EDSA facade and mall signage" width="960" height="723" loading="lazy" decoding="async">
+          </div>
+          <div class="location-details">
+            <p class="location-area">Quezon City</p>
+            <h3 class="location-name" id="location-sm-north">SM North</h3>
+            <p class="location-desc">North Avenue &amp; EDSA mall complex.</p>
+          </div>
+        </article>
+        <article class="location-chip" aria-labelledby="location-trinoma">
+          <div class="location-thumb">
+            <img class="location-photo" src="assets/meetups/trinoma.jpg" alt="Garden terraces and restaurants at Trinoma" width="960" height="723" loading="lazy" decoding="async">
+          </div>
+          <div class="location-details">
+            <p class="location-area">Quezon City</p>
+            <h3 class="location-name" id="location-trinoma">Trinoma</h3>
+            <p class="location-desc">Garden mall in the North Triangle area.</p>
+          </div>
+        </article>
+        <article class="location-chip" aria-labelledby="location-sm-fairview">
+          <div class="location-thumb">
+            <img class="location-photo" src="assets/meetups/sm-fairview.jpg" alt="SM City Fairview facade beside Quirino Highway" width="960" height="723" loading="lazy" decoding="async">
+          </div>
+          <div class="location-details">
+            <p class="location-area">Quezon City</p>
+            <h3 class="location-name" id="location-sm-fairview">SM Fairview</h3>
+            <p class="location-desc">Quirino Highway shopping destination.</p>
+          </div>
+        </article>
+        <article class="location-chip" aria-labelledby="location-bgc">
+          <div class="location-thumb">
+            <img class="location-photo" src="assets/meetups/bgc.jpg" alt="Bonifacio High Street entrance sign and landscaped walkway" width="960" height="723" loading="lazy" decoding="async">
+          </div>
+          <div class="location-details">
+            <p class="location-area">Taguig</p>
+            <h3 class="location-name" id="location-bgc">BGC</h3>
+            <p class="location-desc">Bonifacio High Street shopping district.</p>
+          </div>
+        </article>
+        <article class="location-chip" aria-labelledby="location-eastwood">
+          <div class="location-thumb">
+            <img class="location-photo" src="assets/meetups/eastwood.jpg" alt="Eastwood Mall facade and Orchard Road" width="960" height="723" loading="lazy" decoding="async">
+          </div>
+          <div class="location-details">
+            <p class="location-area">Quezon City</p>
+            <h3 class="location-name" id="location-eastwood">Eastwood</h3>
+            <p class="location-desc">Shopping and dining in the Libis area.</p>
+          </div>
+        </article>
+        <article class="location-chip" aria-labelledby="location-ayala-one">
+          <div class="location-thumb">
+            <img class="location-photo" src="assets/meetups/ayala-one.jpg" alt="One Ayala entrance from MRT Ayala station" width="960" height="723" loading="lazy" decoding="async">
+          </div>
+          <div class="location-details">
+            <p class="location-area">Makati</p>
+            <h3 class="location-name" id="location-ayala-one">Ayala One</h3>
+            <p class="location-desc">One Ayala mall at Ayala Center.</p>
+          </div>
+        </article>
+        <article class="location-chip" aria-labelledby="location-moa">
+          <div class="location-thumb">
+            <img class="location-photo" src="assets/meetups/moa.jpg" alt="SM Mall of Asia facade with its circular SM sign" width="960" height="723" loading="lazy" decoding="async">
+          </div>
+          <div class="location-details">
+            <p class="location-area">Pasay</p>
+            <h3 class="location-name" id="location-moa">MOA</h3>
+            <p class="location-desc">Mall of Asia in the Bay Area complex.</p>
+          </div>
+        </article>
+        <article class="location-chip" aria-labelledby="location-gateway">
+          <div class="location-thumb">
+            <img class="location-photo" src="assets/meetups/gateway.jpg" alt="Gateway Mall 2 atrium with its distinctive leaf-patterned ceiling" width="960" height="723" loading="lazy" decoding="async">
+          </div>
+          <div class="location-details">
+            <p class="location-area">Quezon City</p>
+            <h3 class="location-name" id="location-gateway">Gateway</h3>
+            <p class="location-desc">Araneta City shopping area in Cubao.</p>
+          </div>
+        </article>
+        <article class="location-chip" aria-labelledby="location-shangri-la-shaw">
+          <div class="location-thumb">
+            <img class="location-photo" src="assets/meetups/shangri-la-shaw.jpg" alt="Shangri-La Plaza facade beside the elevated EDSA rail line" width="960" height="720" loading="lazy" decoding="async">
+          </div>
+          <div class="location-details">
+            <p class="location-area">Mandaluyong</p>
+            <h3 class="location-name" id="location-shangri-la-shaw">Shangri-La Shaw</h3>
+            <p class="location-desc">Shangri-La Plaza at EDSA &amp; Shaw.</p>
+          </div>
+        </article>
+      </div>
+      <p class="meetup-photo-credits">Photography: Ralff Nestor Nacor (<a href="https://commons.wikimedia.org/wiki/File:SM_City_North_EDSA,_Q.C.,_Aug_2025.jpg" target="_blank" rel="noopener noreferrer" aria-label="Photo 01: SM North, source and photographer credit">01</a> <a href="https://commons.wikimedia.org/wiki/File:Garden_Restaurants,_Trinoma,_Q.C.,_Jul_2024.jpg" target="_blank" rel="noopener noreferrer" aria-label="Photo 02: Trinoma, source and photographer credit">02</a> <a href="https://commons.wikimedia.org/wiki/File:SM_City_Fairview,_Q.C.,_Sept_2023.jpg" target="_blank" rel="noopener noreferrer" aria-label="Photo 03: SM Fairview, source and photographer credit">03</a> <a href="https://commons.wikimedia.org/wiki/File:Bonifacio_High_Street,_BGC,_Taguig,_Aug_2026_(1).jpg" target="_blank" rel="noopener noreferrer" aria-label="Photo 04: BGC, source and photographer credit">04</a> <a href="https://commons.wikimedia.org/wiki/File:Eastwood_Mall_%26_Orchard_Road,_Q.C.,_Apr_2025.jpg" target="_blank" rel="noopener noreferrer" aria-label="Photo 05: Eastwood, source and photographer credit">05</a> <a href="https://commons.wikimedia.org/wiki/File:One_Ayala_Entrance_from_MRT_3_Ayala_Station,_Makati_City.jpg" target="_blank" rel="noopener noreferrer" aria-label="Photo 06: Ayala One, source and photographer credit">06</a> <a href="https://commons.wikimedia.org/wiki/File:SM_Mall_of_Asia,_Pasay,_Sep_2025_(2).jpg" target="_blank" rel="noopener noreferrer" aria-label="Photo 07: MOA, source and photographer credit">07</a> <a href="https://commons.wikimedia.org/wiki/File:Gateway_Mall_2,_Araneta_City,_Cubao,_Q.C.,_Sep_2026_(3).jpg" target="_blank" rel="noopener noreferrer" aria-label="Photo 08: Gateway, source and photographer credit">08</a>), <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>; RioHondo (<a href="https://commons.wikimedia.org/wiki/File:MRT-3_Tracks_Shaw_Boulevard_1.jpg" target="_blank" rel="noopener noreferrer" aria-label="Photo 09: Shangri-La Shaw, source and photographer credit">09</a>), <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0</a>.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer wrap">
+    <div class="footer-main">
+      <img src="assets/techtalk-logo.png" srcset="assets/techtalk-logo-opt.png 512w, assets/techtalk-logo.png 2048w" sizes="120px" alt="TechTalk" class="footer-logo" width="120" height="80">
+      <div class="footer-next">
+        <span class="footer-kicker">Ready to deal?</span>
+        <a class="footer-cta" href="https://www.facebook.com/T3kTok" target="_blank" rel="noopener noreferrer">Message TechTalk <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+    <p class="footer-tagline">TAP <span>•</span> CONNECT <span>•</span> TRADE WITH CONFIDENCE</p>
+    <p class="copyright"><span>© <span id="year"></span> TechTalk. All rights reserved.</span><a class="footer-top" href="#top">Back to top <span aria-hidden="true">↑</span></a></p>
+  </footer>
+
+  <?php if ($hasGenuineProducts): ?>
+  <dialog id="product-gallery" class="product-gallery" aria-labelledby="product-gallery-title">
+    <div class="gallery-header"><h2 id="product-gallery-title">Product photographs</h2><button type="button" data-gallery-close aria-label="Close product photographs">Close ×</button></div>
+    <div class="gallery-stage"><img data-gallery-image alt=""><p data-gallery-error role="status" hidden>This photograph could not be loaded. Try another photograph or contact TechTalk.</p></div>
+    <div class="gallery-controls"><button type="button" data-gallery-prev aria-label="Previous photograph">← Previous</button><p data-gallery-counter role="status" aria-live="polite"></p><button type="button" data-gallery-next aria-label="Next photograph">Next →</button></div>
+  </dialog>
+  <?php endif; ?>
+  <script src="assets/product-gallery.js" defer></script>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="config.js"></script>
+  <script src="assets/reviews-model.js"></script>
+  <script src="script.js"></script>
+  <script src="motion.js" defer></script>
+</body>
+</html>

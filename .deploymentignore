@@ -1,0 +1,51 @@
+# TechTalk Production Deployment Ignore List
+# Files and directories that MUST be excluded from production deployments
+
+# Internal agent handoffs, session checkpoints, and historical reports
+.agent-handoff/
+.git/
+.gitignore
+.gitattributes
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Database dumps, migrations, and local backups
+*.sql
+*.bak
+*.old
+*.swp
+
+# Internal documentation and development notes
+README.txt
+REVIEWS-SETUP.txt
+START-HERE.txt
+
+# Development and raw assets
+Pictures/
+Logo.png
+
+# Local configuration files containing credentials (use config.local.example.php as template)
+config.local.php
+
+# Logs and runtime caches
+*.log
+*.tmp
+
+# Release-only exclusions (Hostinger root-domain package)
+index.html
+includes/.installed
+config.local.example.php
+migrations/
+tests/
+deploy/
+private/
+private-tools/
+database/
+backups/
+storage/admin-avatars/*
+!storage/admin-avatars/.htaccess
+assets/IMG_*
+assets/full-reference-sheet*
+*.zip

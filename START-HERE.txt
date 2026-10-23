@@ -1,0 +1,6 @@
+NFC Techtalk website archive
+Open index.html to view the static site locally.
+Keep assets/ beside index.html to preserve image paths.
+README.txt and REVIEWS-SETUP.txt contain original project guidance.
+Mac .DS_Store files were intentionally omitted.
+Original files on Google Drive were not modified.

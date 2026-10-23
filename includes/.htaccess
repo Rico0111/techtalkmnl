@@ -1,0 +1,2 @@
+# Prevent all direct HTTP access to includes
+Require all denied
