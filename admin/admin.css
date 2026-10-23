@@ -477,3 +477,11 @@ label { font-weight: 600; }
 }
 @media (prefers-reduced-motion: reduce) { .nav-line,.btn,.stat-card { transition: none; } }
 body[data-reduced-motion="true"] .nav-line { transition: none; }
+
+/* Preserve the header's layout space; only composited mobile presentation moves. */
+@media (max-width: 1099px) {
+  .admin-navbar { transform: translateY(0); opacity: 1; visibility: visible; transition: transform 220ms ease, opacity 220ms ease, visibility 0s; }
+  .admin-navbar.is-scroll-hidden { transform: translateY(calc(-100% - 1px)); opacity: 0; pointer-events: none; visibility: hidden; transition: transform 220ms ease, opacity 220ms ease, visibility 0s 220ms; }
+}
+@media (prefers-reduced-motion: reduce) { .admin-navbar { transition: none; } }
+body[data-reduced-motion="true"] .admin-navbar { transition: none; }
