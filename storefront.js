@@ -127,7 +127,7 @@
   const render = () => {
     const active = document.activeElement;
     const keyFocus = header.contains(active) && (keyboard || active.matches(':focus-visible'));
-    const navHidden = mobile.matches && !reduced.matches && scrolling && down && lastY > 56 && !menu.open && !keyFocus;
+    const navHidden = mobile.matches && !reduced.matches && scrolling && lastY > 56 && !menu.open && !keyFocus;
     header.classList.toggle('is-scroll-hidden', navHidden);
     accessible(header, navHidden);
     const focused = active === link;
