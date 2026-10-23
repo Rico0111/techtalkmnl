@@ -8,6 +8,11 @@ define('TECHTALK_INIT', true);
 require_once __DIR__ . '/includes/products.php';
 require_once __DIR__ . '/includes/security.php';
 send_security_headers();
+require_once __DIR__ . '/includes/public-assets.php';
+// Revalidate public HTML so each visit selects the current content-hashed asset URLs.
+header('Cache-Control: no-cache, max-age=0, must-revalidate');
+header('CDN-Cache-Control: no-store');
+header('X-TechTalk-UI-Version: ' . techtalk_public_ui_version());
 
 $publishedProducts = get_published_products();
 $hasGenuineProducts = !empty($publishedProducts);
@@ -24,8 +29,8 @@ $hasGenuineProducts = !empty($publishedProducts);
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800;900&display=swap">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="storefront.css">
+  <link rel="stylesheet" href="<?= htmlspecialchars(techtalk_public_asset_url('style.css'), ENT_QUOTES, 'UTF-8') ?>">
+  <link rel="stylesheet" href="<?= htmlspecialchars(techtalk_public_asset_url('storefront.css'), ENT_QUOTES, 'UTF-8') ?>">
 </head>
 <body class="signal-motion">
   <a class="skip-link" href="#top">Skip to main content</a>
@@ -541,12 +546,12 @@ $hasGenuineProducts = !empty($publishedProducts);
     <div class="gallery-controls"><button type="button" data-gallery-prev aria-label="Previous photograph">← Previous</button><p data-gallery-counter role="status" aria-live="polite"></p><button type="button" data-gallery-next aria-label="Next photograph">Next →</button></div>
   </dialog>
   <?php endif; ?>
-  <script src="assets/product-gallery.js" defer></script>
+  <script src="<?= htmlspecialchars(techtalk_public_asset_url('assets/product-gallery.js'), ENT_QUOTES, 'UTF-8') ?>" defer></script>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="config.js"></script>
-  <script src="assets/reviews-model.js"></script>
-  <script src="script.js"></script>
-  <script src="motion.js" defer></script>
-  <script src="storefront.js" defer></script>
+  <script src="<?= htmlspecialchars(techtalk_public_asset_url('config.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
+  <script src="<?= htmlspecialchars(techtalk_public_asset_url('assets/reviews-model.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
+  <script src="<?= htmlspecialchars(techtalk_public_asset_url('script.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
+  <script src="<?= htmlspecialchars(techtalk_public_asset_url('motion.js'), ENT_QUOTES, 'UTF-8') ?>" defer></script>
+  <script src="<?= htmlspecialchars(techtalk_public_asset_url('storefront.js'), ENT_QUOTES, 'UTF-8') ?>" defer></script>
 </body>
 </html>
