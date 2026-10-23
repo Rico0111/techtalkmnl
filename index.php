@@ -60,14 +60,17 @@ $hasGenuineProducts = !empty($publishedProducts);
       <a href="#meetups">Meetups</a>
       <a href="#contact">Connect</a>
     </nav>
-    <a class="header-contact" href="https://www.facebook.com/T3kTok" target="_blank" rel="noopener noreferrer">Let's talk <span aria-hidden="true">↗</span></a>
+    <div class="contact-dock">
+      <a class="header-contact" href="https://www.facebook.com/T3kTok" target="_blank" rel="noopener noreferrer">Let's talk <span aria-hidden="true">↗</span></a>
+    </div>
     <details class="mobile-menu">
-      <summary>Menu <span aria-hidden="true">☰</span></summary>
-      <nav aria-label="Mobile navigation">
-        <a href="#available-units">Products <span aria-hidden="true">↗</span></a>
-        <a href="#carousell-reviews">Reviews <span aria-hidden="true">↗</span></a>
-        <a href="#meetups">Meetups <span aria-hidden="true">↗</span></a>
-        <a href="#contact">Connect <span aria-hidden="true">↗</span></a>
+      <summary aria-controls="mobile-navigation" aria-label="Open menu"><span class="menu-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" focusable="false"><path class="menu-line menu-line-top" d="M5 8h14"/><path class="menu-line menu-line-bottom" d="M5 16h14"/></svg></span></summary>
+      <nav id="mobile-navigation" aria-label="Mobile navigation">
+        <div class="menu-panel-heading" aria-hidden="true"><span>Explore TechTalk</span><span>MANILA / PH</span></div>
+        <a href="#available-units"><span class="menu-link-label">Products</span><span class="menu-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a>
+        <a href="#carousell-reviews"><span class="menu-link-label">Reviews</span><span class="menu-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a>
+        <a href="#meetups"><span class="menu-link-label">Meetups</span><span class="menu-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a>
+        <a href="#contact"><span class="menu-link-label">Connect</span><span class="menu-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a>
       </nav>
     </details>
   </header>
@@ -100,10 +103,19 @@ $hasGenuineProducts = !empty($publishedProducts);
         <span>Meetups by appointment</span>
       </div>
 
-      <div class="trust-row">
-        <div class="trust-item"><span class="trust-icon" aria-hidden="true">✓</span><div><strong>QUALITY UNITS</strong><small>TESTED &amp; CHECKED</small></div></div>
-        <div class="trust-item"><span class="trust-icon" aria-hidden="true">↔</span><div><strong>FAIR DEALS</strong><small>BUY · SELL · TRADE</small></div></div>
-        <div class="trust-item"><span class="trust-icon" aria-hidden="true">★</span><div><strong>REAL TRANSACTIONS</strong><small>VOUCHES &amp; REVIEWS</small></div></div>
+      <div class="trust-row" role="group" aria-label="TechTalk commitments">
+        <div class="trust-item">
+          <span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg></span>
+          <div><strong><span>QUALITY</span> <span>UNITS</span></strong><small>TESTED &amp; CHECKED</small></div>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 8h16m-4-4 4 4-4 4M20 16H4m4-4-4 4 4 4"/></svg></span>
+          <div><strong><span>FAIR</span> <span>DEALS</span></strong><small>BUY · SELL · TRADE</small></div>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9Z"/></svg></span>
+          <div><strong><span>REAL</span> <span>TRANSACTIONS</span></strong><small>VOUCHES &amp; REVIEWS</small></div>
+        </div>
       </div>
     </section>
 
