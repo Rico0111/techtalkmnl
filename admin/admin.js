@@ -123,3 +123,65 @@
     updatePublication();
   });
 })();
+
+/* Mobile workspace navigation hides during scroll in either direction, recovers on idle. */
+(() => {
+  const header = document.querySelector('.admin-navbar');
+  const menu = header?.querySelector('.nav-disclosure');
+  if (!header || !menu) return;
+  const mobile = matchMedia('(max-width: 1099px)');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const lifetime = new AbortController();
+  let frame = 0, idleTimer, lastY = Math.max(0, scrollY), travel = 0, scrolling = false;
+  let keyboard = false, suspended = false;
+  const render = () => {
+    const active = document.activeElement;
+    const keyboardFocus = header.contains(active) && (keyboard || active.matches(':focus-visible'));
+    const editing = active.matches('input, select, textarea, [contenteditable="true"]');
+    const critical = Boolean(document.querySelector('dialog[open], form[aria-busy="true"], form[data-busy="true"]'));
+    const hidden = mobile.matches && !reduced.matches && document.body.dataset.reducedMotion !== 'true'
+      && scrolling && lastY > 56 && !menu.open && !keyboardFocus && !editing && !critical;
+    header.classList.toggle('is-scroll-hidden', hidden);
+    header.inert = hidden;
+    if (hidden) header.setAttribute('aria-hidden', 'true'); else header.removeAttribute('aria-hidden');
+  };
+  const reset = () => {
+    clearTimeout(idleTimer); cancelAnimationFrame(frame); frame = 0;
+    scrolling = false; travel = 0; lastY = Math.max(0, scrollY); render();
+  };
+  const update = () => {
+    frame = 0;
+    const y = Math.max(0, scrollY), delta = y - lastY;
+    if (delta) {
+      travel = Math.sign(delta) === Math.sign(travel) ? travel + delta : delta;
+      if (Math.abs(travel) >= 8) { scrolling = true; travel = 0; }
+    }
+    lastY = y; render();
+  };
+  window.addEventListener('scroll', () => {
+    if (!mobile.matches || reduced.matches || document.body.dataset.reducedMotion === 'true' || suspended) return;
+    if (!frame) frame = requestAnimationFrame(update);
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => {
+      if (frame) { cancelAnimationFrame(frame); update(); }
+      scrolling = false; travel = 0; render();
+    }, 300);
+  }, { passive: true, signal: lifetime.signal });
+  document.addEventListener('keydown', () => { keyboard = true; render(); }, { capture: true, signal: lifetime.signal });
+  document.addEventListener('pointerdown', () => { keyboard = false; }, { capture: true, passive: true, signal: lifetime.signal });
+  document.addEventListener('focusin', render, { signal: lifetime.signal });
+  document.addEventListener('focusout', () => { if (!suspended) requestAnimationFrame(render); }, { signal: lifetime.signal });
+  menu.addEventListener('toggle', render, { signal: lifetime.signal });
+  mobile.addEventListener('change', reset, { signal: lifetime.signal });
+  reduced.addEventListener('change', reset, { signal: lifetime.signal });
+  const criticalState = new MutationObserver(render);
+  criticalState.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['aria-busy', 'data-busy', 'open'] });
+  const preferences = new MutationObserver(reset);
+  preferences.observe(document.body, { attributes: true, attributeFilter: ['data-reduced-motion'] });
+  window.addEventListener('pagehide', event => {
+    suspended = true; clearTimeout(idleTimer); cancelAnimationFrame(frame); frame = 0;
+    if (!event.persisted) { lifetime.abort(); preferences.disconnect(); criticalState.disconnect(); }
+  });
+  window.addEventListener('pageshow', () => { suspended = false; reset(); });
+  reset();
+})();
