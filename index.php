@@ -18,14 +18,14 @@ $hasGenuineProducts = !empty($publishedProducts);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="TechTalk — buy, sell, and trade gaming laptops, MacBooks, and gadgets.">
-  <meta name="theme-color" content="#050d18">
+  <meta name="theme-color" content="#F5F5F7">
   <title>TechTalk | Buy • Sell • Trade</title>
   <link rel="icon" href="assets/techtalk-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800;900&display=swap">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="motion.css">
+  <link rel="stylesheet" href="storefront.css">
 </head>
 <body class="signal-motion">
   <a class="skip-link" href="#top">Skip to main content</a>
@@ -54,42 +54,44 @@ $hasGenuineProducts = !empty($publishedProducts);
     <a class="brand" href="#top" aria-label="TechTalk home">
       <img src="assets/techtalk-logo.png" srcset="assets/techtalk-logo-opt.png 512w, assets/techtalk-logo.png 2048w" sizes="120px" alt="TechTalk Buy Sell Trade logo" width="124" height="83">
     </a>
-    <div class="header-side">
-      <p class="header-meta">Manila · By appointment</p>
-      <div class="nfc-pill"><span class="nfc-dot"><span class="entry-pulse" aria-hidden="true"></span></span> NFC READY</div>
-    </div>
+    <nav class="desktop-nav quick-nav" aria-label="Main navigation">
+      <a href="#available-units">Products</a>
+      <a href="#carousell-reviews">Reviews</a>
+      <a href="#meetups">Meetups</a>
+      <a href="#contact">Connect</a>
+    </nav>
+    <a class="header-contact" href="https://www.facebook.com/T3kTok" target="_blank" rel="noopener noreferrer">Let's talk <span aria-hidden="true">↗</span></a>
+    <details class="mobile-menu">
+      <summary>Menu <span aria-hidden="true">☰</span></summary>
+      <nav aria-label="Mobile navigation">
+        <a href="#available-units">Products <span aria-hidden="true">↗</span></a>
+        <a href="#carousell-reviews">Reviews <span aria-hidden="true">↗</span></a>
+        <a href="#meetups">Meetups <span aria-hidden="true">↗</span></a>
+        <a href="#contact">Connect <span aria-hidden="true">↗</span></a>
+      </nav>
+    </details>
   </header>
 
   <main id="top" class="wrap" tabindex="-1">
     <section class="hero">
       <div class="hero-layout">
         <div class="hero-content">
-          <span class="signal-trace" aria-hidden="true"><span class="signal-trace-fill"></span><span class="signal-trace-node"></span></span>
-          <p class="eyebrow">YOUR GADGET CONNECTION</p>
-          <h1 class="hero-title"><span class="hero-word hero-intro">Buy · Sell · Trade</span> <span class="hero-word hero-name">TechTalk</span></h1>
-          <p class="hero-copy">Buy, Sell &amp; Trade Laptops, MacBooks, and Gadgets.</p>
+          <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> YOUR GADGET CONNECTION · MANILA</p>
+          <h1 class="hero-title">Your next upgrade.<br><span class="hero-word">Let's TechTalk.</span></h1>
+          <p class="hero-copy">Buy, sell &amp; trade laptops, MacBooks, and gadgets. Find your next connection, right here in Manila.</p>
           <div class="hero-actions">
-            <a class="primary-contact" id="primaryContactLink" href="https://www.facebook.com/T3kTok" target="_blank" rel="noopener noreferrer">Contact via Facebook <span aria-hidden="true">↗</span></a>
-            <a class="browse-products" href="#available-units">Explore Products</a>
-            <a class="browse-reviews" href="#carousell-reviews">Customer Reviews</a>
+            <a class="browse-products" href="#available-units">Explore products <span aria-hidden="true">↗</span></a>
+            <a class="primary-contact" id="primaryContactLink" href="https://www.facebook.com/T3kTok" target="_blank" rel="noopener noreferrer">Talk to us <span aria-hidden="true">↗</span></a>
           </div>
-          <nav class="quick-nav" aria-label="Quick section navigation">
-            <a href="#available-units">Products</a>
-            <a href="#carousell-reviews">Reviews</a>
-            <a href="#meetups">Meetups</a>
-            <a href="#contact">Contact</a>
-          </nav>
+          <p class="hero-note">Buy · Sell · Trade <span aria-hidden="true">/</span> Meetups by appointment</p>
         </div>
-        <div class="signal-map" aria-hidden="true">
-          <div class="edition-caption"><span>TECHTALK / DIGITAL PROFILE</span><span>↗</span></div>
+        <figure class="signal-map">
+          <div class="edition-caption"><span>THE TECHTALK EDIT</span><span>01 / MACBOOKS</span></div>
           <div class="signal-receiver">
-            <img src="assets/macbooks.jpg" alt="" width="406" height="298">
-            <span class="hero-sticker hero-sticker-a" id="reviewHeroBadge">24 featured testimonials</span>
-            <span class="hero-sticker hero-sticker-b">NFC profile</span>
-            <div class="receiver-footer"><strong>TAP. CONNECT.<br>TRADE.</strong><span>NFC<br>PROFILE ↗</span></div>
+            <img src="assets/Macbook-opt.png" srcset="assets/Macbook-opt.png 800w, assets/Macbook.png 1536w" sizes="(max-width: 768px) 90vw, 48vw" alt="MacBook showcase artwork featuring two silver laptops" width="800" height="533" fetchpriority="high">
           </div>
-          <div class="edition-caption"><span>LAPTOPS / MACBOOKS / GADGETS</span><span class="edition-signal">)))</span></div>
-        </div>
+          <figcaption class="hero-product-caption"><div><span class="eyebrow">WORK. CREATE. CONNECT.</span><strong>MacBooks &amp; more.</strong></div><a href="#available-units" aria-label="Explore the product showcase">↗</a></figcaption>
+        </figure>
       </div>
 
       <div class="hero-meta" aria-hidden="true">
@@ -533,5 +535,6 @@ $hasGenuineProducts = !empty($publishedProducts);
   <script src="assets/reviews-model.js"></script>
   <script src="script.js"></script>
   <script src="motion.js" defer></script>
+  <script src="storefront.js" defer></script>
 </body>
 </html>
