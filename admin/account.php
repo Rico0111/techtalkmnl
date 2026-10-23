@@ -51,9 +51,9 @@ $invalid = fn(string $action, string $key) => $fieldError($action, $key) ? ' ari
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Account Settings — TechTalk Admin</title>
   <?php include __DIR__ . '/favicon.php'; ?>
-  <link rel="stylesheet" href="admin.css">
-  <script src="admin.js" defer></script>
-  <script src="account.js" defer></script>
+  <link rel="stylesheet" href="<?= admin_h(admin_asset_url('admin.css')) ?>">
+  <script src="<?= admin_h(admin_asset_url('admin.js')) ?>" defer></script>
+  <script src="<?= admin_h(admin_asset_url('account.js')) ?>" defer></script>
 </head>
 <body<?= admin_preference_attributes() ?>>
   <?php include __DIR__ . '/navbar.php'; ?>
@@ -109,7 +109,7 @@ $invalid = fn(string $action, string $key) => $fieldError($action, $key) ? ' ari
           </form>
         </section>
         <section class="editor-section" id="preferences" aria-labelledby="preferences-title">
-          <h2 id="preferences-title">Appearance &amp; Preferences</h2><p class="section-description">Customize your workspace while keeping TechTalk’s navy/cyan identity. Preferences belong to your account.</p>
+          <h2 id="preferences-title">Appearance &amp; Preferences</h2><p class="section-description">Customize your workspace within TechTalk’s white-and-gray design. Preferences belong to your account.</p>
           <form action="account.php" method="POST" data-account-form data-saved-values="<?= admin_h(json_encode(['density'=>$account['density'],'reduce_motion'=>$account['reduce_motion'] ? '1' : null])) ?>">
             <input type="hidden" name="csrf_token" value="<?= admin_h(csrf_token()) ?>"><input type="hidden" name="action" value="preferences">
             <div class="form-grid">

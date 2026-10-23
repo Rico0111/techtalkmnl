@@ -17,7 +17,7 @@ $navItems = [
   <details class="nav-disclosure" open>
     <summary aria-controls="admin-navigation-panel">
       <span class="menu-context">Workspace navigation</span>
-      <span class="menu-action"><span data-menu-label>Menu</span><svg class="menu-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span>
+      <span class="menu-action"><span data-menu-label>Menu</span><svg class="menu-chevron" viewBox="0 0 24 24" aria-hidden="true"><path class="nav-line nav-line-top" d="M5 8h14" /><path class="nav-line nav-line-bottom" d="M5 16h14" /></svg></span>
     </summary>
     <div class="nav-menu-panel" id="admin-navigation-panel">
     <div class="nav-section-label eyebrow">Workspace</div>
@@ -33,8 +33,6 @@ $navItems = [
         View Website<span class="sr-only"> (opens in a new tab)</span>
       </a></li>
     </ul>
-    </div>
-  </details>
   <?php if ($currentUser): ?>
     <div class="nav-account">
       <span class="eyebrow">Signed in</span>
@@ -48,4 +46,7 @@ $navItems = [
       </form>
     </div>
   <?php endif; ?>
+    </div>
+  </details>
+
 </nav>
